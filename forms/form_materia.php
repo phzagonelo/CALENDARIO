@@ -4,15 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro Materia</title>
-    <style>
-        .centralizada{
-            width: 700px;
-            background-color: rgba(42, 44, 83, 0.84);
-            padding:35px;
-            margin:140px auto;
-            border-radius:15px;
-        }
-    </style>
+     <link rel="stylesheet" href="../css/form_materia.css">
 </head>
 <body>
     <?php 

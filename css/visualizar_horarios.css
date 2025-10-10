@@ -1,0 +1,74 @@
+ .centralizada{
+            width: 95%;
+            max-width: 1400px;
+            background-color: rgba(42, 44, 83, 0.84);
+            padding:35px;
+            margin:60px auto;
+            border-radius:15px;
+            box-shadow: 0 5px 15px rgba(238, 238, 240, 0.63);
+        }
+        .calendario-container{
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            overflow-x: auto;
+        }
+        .dia-coluna{
+            flex: 1;
+            min-width: 200px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .dia-header{
+            background-color: rgba(19, 85, 124, 0.84);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .horario-item{
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background-color 0.2s;
+        }
+        .horario-item:hover{
+            background-color: rgba(59, 160, 248, 0.1);
+        }
+        .horario-item:last-child{
+            border-bottom: none;
+        }
+        .horario-turno{
+            font-weight: bold;
+            color: #092b4f;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .horario-professor{
+            color: #333;
+            font-size: 13px;
+            margin-bottom: 3px;
+        }
+        .horario-materia{
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 3px;
+        }
+        .horario-turma{
+            color: #3ba0f8;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .sem-dados{
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 18px;
+        }
+        .dia-vazio{
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            font-style: italic;
+        }

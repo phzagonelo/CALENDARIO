@@ -1,0 +1,8 @@
+.centralizada{
+            width: 700px;
+            background-color: rgba(42, 44, 83, 0.84);
+            padding:35px;
+            margin:60px auto;
+            border-radius:15px;
+            box-shadow: 0 5px 15px rgba(238, 238, 240, 0.63);
+        }

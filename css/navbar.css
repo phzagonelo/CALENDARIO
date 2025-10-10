@@ -1,0 +1,50 @@
+ html, body{
+          margin:0;
+          height:100%;
+        }
+         body {
+            background-image: url('../images/FotoSenai.png'); /* Caminho da imagem */
+            background-size: cover; /* Faz com que a imagem cubra toda a área */
+            background-position: center; /* Centraliza a imagem na página */
+            background-repeat: no-repeat; /* Impede a repetição da imagem */
+        }
+        /* Checkbox escondido para controlar o menu */
+        #menu-toggle {
+            display: none;
+        }
+        /* Botão do menu */
+        .menu-btn {
+    position: fixed;      /* Fica fixo na tela mesmo se rolar a página */
+    top: 15px;           /* 15px do topo */
+    left: 15px;          /* 15px da esquerda */
+    z-index: 1001;       /* Fica na frente de tudo (número alto) */
+    background-color: rgba(42, 44, 83, 0.84);  /* Azul escuro semi-transparente */
+    color: white;
+    padding: 10px 15px;  /* Espaçamento interno */
+    cursor: pointer;     /* Mostra mãozinha quando passa o mouse */
+    border-radius: 5px;  /* Cantos arredondados */
+}
+        /* Menu vertical */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: rgba(42, 44, 83, 0.95);
+            transition: left 0.3s ease;
+            z-index: 1000;
+            padding-top: 60px;
+        }
+        /* Quando checkbox marcado, mostra menu */
+        #menu-toggle:checked ~ .sidebar {
+            left: 0;
+        }
+        
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 15px 20px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
