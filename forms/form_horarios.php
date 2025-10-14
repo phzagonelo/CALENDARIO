@@ -86,7 +86,6 @@
                     <label class="form-label">Turma</label>
                     <input type="text" class="form-control" name="turma" placeholder="Ex: 3º ANO DS" required>
                 </div>
-
                 <button type="submit" class="button">Cadastrar</button>
             </form>
         <?php endif; ?>
