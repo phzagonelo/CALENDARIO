@@ -9,6 +9,9 @@
 <body>
     <?php 
         include "../navbar.php";
+        include "../conexao.php";
+        $sql = "SELECT id, materia, carga_horaria, turno FROM materias ORDER BY materia";
+        $materias_cadastradas = mysqli_query($conexao, $sql);
     ?>
 <div class="centralizada">
     <h1 style="color:white">CADASTRO MATÉRIA</h1>
@@ -32,6 +35,30 @@
     </div>
     <button type="submit" class="btn btn-primary">Cadastrar</button>
     </form>
+    <br></br>
+
+<!-- lista das materias ja adicionadas -->
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Carga Horária</th>
+        <th scope="col">Turno</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php while($materia = mysqli_fetch_assoc($materias_cadastradas)):?>
+            <tr>
+            <th scope="row"><?= $materia['id']?></th>
+            <td><?= $materia['materia']?></td>
+            <td><?= $materia['carga_horaria']?></td>
+            <td><?= $materia['turno']?></td>
+            </tr>
+        </ul>
+        <?php endwhile; ?>
+    </tbody>
+</table>
 </div>
 </body>
 </html>
