@@ -1,0 +1,107 @@
+ /* Fundo geral */
+        body {
+            background: #f5f3f0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Faixa azul no topo */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(42, 44, 83, 0.95), #6068c4ff);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 0;
+            padding: 0 10px;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-top: 8px;
+        }
+
+        /* Formulário branco centralizado */
+        .form-container {
+            background: white;
+            width: 500px;
+            margin: 60px auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(42, 44, 83, 0.4);
+            color: rgba(42, 44, 83, 0.95);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            color: rgba(42, 44, 83, 0.95);
+            margin-bottom: 25px;
+        }
+
+        /* Campos */
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="tel"],
+        .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 14px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        /* Lista de matérias */
+        .materias-list {
+            background: #fff;
+            border-radius: 6px;
+            border: 1px solid #e6e6e6;
+            margin-bottom: 14px;
+            padding: 10px;
+        }
+
+        .materias-list label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        /* Botão */
+        button {
+            background-color: rgba(42, 44, 83, 0.95);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #6face9ff;
+        }
+
+        /* Responsivo */
+        @media (max-width: 600px) {
+            .form-container {
+                width: calc(100% - 40px);
+                margin: 30px auto;
+                padding: 20px;
+            }
+        }
