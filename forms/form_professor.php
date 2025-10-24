@@ -11,6 +11,20 @@
         include "../conexao.php";
         $sql_materias = "SELECT id, materia FROM materias ORDER BY materia";
         $resultado = mysqli_query($conexao, $sql_materias);
+
+        $dias = [
+            'segunda' => 'Segunda',
+            'terca' => 'Terça',
+            'quarta' => 'Quarta',
+            'quinta' => 'Quinta',
+            'sexta' => 'Sexta',
+            'sabado' => 'Sábado'
+        ];
+        $turnos = [
+            'manha' => 'Manhã',
+            'tarde' => 'Tarde',
+            'noite' => 'Noite'
+        ];
     ?>
 
     <style>
@@ -48,6 +62,25 @@
                         echo ('<label><input type="checkbox" name="materias[]" value="'.$materia["id"].'"> '.$materia["materia"].'</label>');
                     }
                 }
+                ?>
+            </div>
+            <label>Disponibilidade</label>
+            <div class="disponibilidade-grid">
+                <?php
+                    foreach($dias as $dia_valor => $dia_nome):
+                    foreach($turnos as $turno_valor => $turno_nome):
+                ?>
+                    <div class="disponibilidade-item">
+                        <label>
+                            <input type="checkbox" 
+                                   name="disponibilidade[]" 
+                                   value="<?= $dia_valor ?>-<?= $turno_valor ?>">
+                            <?= $dia_nome ?> - <?= $turno_nome ?>
+                        </label>
+                    </div>
+                <?php 
+                    endforeach;
+                endforeach; 
                 ?>
             </div>
 
