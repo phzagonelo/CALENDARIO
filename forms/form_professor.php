@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Professores</title>
-     <link rel="stylesheet" href="../css/forms_geral.css">
+    <link rel="stylesheet" href="../css/forms_geral.css">
 
-    <?php 
+<body>
+     <?php 
         include "../navbar.php";
         include "../conexao.php";
         $sql_materias = "SELECT id, materia FROM materias ORDER BY materia";
@@ -26,18 +27,23 @@
             'noite' => 'Noite'
         ];
     ?>
-
-    <style>
-    </style>
 </head>
-
-<body>
 
     <!-- Hero Section -->
     <section class="hero-section">
         <h1>Cadastro de Professores</h1>
         <p>Preencha as informações abaixo para cadastrar um novo professor</p>
     </section>
+
+    <?php
+    // Verifica se houve sucesso ou erro no cadastro
+    if (isset($_GET['sucesso']) && $_GET['sucesso'] == 1) {
+        echo '<div class="alert alert-success">Professor cadastrado com sucesso!</div>';
+    }
+    if (isset($_GET['erro']) && $_GET['erro'] == 1) {
+        echo '<div class="alert alert-danger">Erro ao cadastrar professor!</div>';
+    }
+    ?>
 
     <!-- Formulário -->
     <div class="form-container">
