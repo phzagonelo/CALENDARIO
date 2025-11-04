@@ -11,67 +11,123 @@
         include "../navbar.php";
         include "../conexao.php";
         
-        // Buscar todos os horários
-        $sql = "SELECT h.*, p.nome as nome_professor, m.materia as nome_materia 
-                FROM horarios h 
-                INNER JOIN professores p ON h.professor_id = p.id 
-                INNER JOIN materias m ON h.materia_id = m.id ";
+        // Pegar mês e ano (da URL ou atual)
+        $mes = isset($_GET['mes']) ? intval($_GET['mes']) : date('n');
+        $ano = isset($_GET['ano']) ? intval($_GET['ano']) : date('Y');
+        
+        // Validar mês
+        if ($mes < 1) { $mes = 12; $ano--; }
+        if ($mes > 12) { $mes = 1; $ano++; }
+        
+        // Buscar todas as aulas do mês
+        $primeiro_dia = "$ano-$mes-01";
+        $ultimo_dia = date("Y-m-t", strtotime($primeiro_dia));
+        
+        $sql = "SELECT a.*, p.nome as nome_professor, m.materia as nome_materia 
+                FROM aulas_mes a 
+                INNER JOIN professores p ON a.professor_id = p.id 
+                INNER JOIN materias m ON a.materia_id = m.id 
+                WHERE a.data BETWEEN '$primeiro_dia' AND '$ultimo_dia'
+                ORDER BY a.data, a.turno";
         
         $resultado = mysqli_query($conexao, $sql);
         
-        // Organizar horários por dia da semana
-        $dias_semana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira'];
-        $horarios_por_dia = array();
-        
-        foreach($dias_semana as $dia){
-            $horarios_por_dia[$dia] = array();
+        // Organizar aulas por data
+        $aulas_por_dia = array();
+        while($aula = mysqli_fetch_assoc($resultado)){
+            $dia = date('j', strtotime($aula['data']));
+            if(!isset($aulas_por_dia[$dia])){
+                $aulas_por_dia[$dia] = array();
+            }
+            $aulas_por_dia[$dia][] = $aula;
         }
         
-        while($horario = mysqli_fetch_assoc($resultado)){
-            $horarios_por_dia[$horario['dia_semana']][] = $horario;
-        }
+        // Informações do calendário
+        $dias_no_mes = date('t', strtotime($primeiro_dia));
+        $primeiro_dia_semana = date('N', strtotime($primeiro_dia)); // 1=segunda, 7=domingo
         
-        $total_horarios = mysqli_num_rows($resultado);
+        // Nomes dos dias da semana
+        $dias_semana = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+        
+        // Nomes dos meses
+        $meses = ['', 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
+                  'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+        
+        $total_aulas = mysqli_num_rows($resultado);
+        
+        // Calcular mês anterior e próximo
+        $mes_anterior = $mes - 1;
+        $ano_anterior = $ano;
+        if($mes_anterior < 1) { $mes_anterior = 12; $ano_anterior--; }
+        
+        $mes_proximo = $mes + 1;
+        $ano_proximo = $ano;
+        if($mes_proximo > 12) { $mes_proximo = 1; $ano_proximo++; }
     ?>
 <div class="centralizada">
-    <h1 style="color:white">VISUALIZAR HORÁRIOS</h1>
-  <?php if($total_horarios == 0): ?>
-        <div class="sem-dados">
-            Nenhum horário cadastrado ainda.
-            <br><br>
-            <a href="../forms/form_horarios.php" class="btn btn-primary">Cadastrar Horário</a>
-        </div>
-    <?php else: ?>
-        <div class="calendario-container">
-            <?php foreach($dias_semana as $dia): ?>
-                <div class="dia-coluna">
-                    <div class="dia-header"><?php echo $dia; ?></div>
-                    <?php if(count($horarios_por_dia[$dia]) > 0): ?>
-                        <?php foreach($horarios_por_dia[$dia] as $horario): ?>
-                            <div class="horario-item">
+    <h1 style="color:rgba(42, 44, 83, 0.95);;">VISUALIZAR HORÁRIOS</h1>
+    
+    <div class="mes-navegacao">
+        <a href="?mes=<?php echo $mes_anterior; ?>&ano=<?php echo $ano_anterior; ?>">
+            <button>← Mês Anterior</button>
+        </a>
+        <h2><?php echo $meses[$mes] . ' ' . $ano; ?></h2>
+        <a href="?mes=<?php echo $mes_proximo; ?>&ano=<?php echo $ano_proximo; ?>">
+            <button>Próximo Mês →</button>
+        </a>
+    </div>
+    
+    <div class="calendario-grid">
+        <!-- Cabeçalho dos dias da semana -->
+        <?php foreach($dias_semana as $dia): ?>
+            <div class="dia-semana-header"><?php echo $dia; ?></div>
+        <?php endforeach; ?>
+        
+        <!-- Dias vazios antes do primeiro dia -->
+        <?php for($i = 1; $i < $primeiro_dia_semana; $i++): ?>
+            <div class="dia-vazio-calendario"></div>
+        <?php endfor; ?>
+        
+        <!-- Dias do mês -->
+        <?php for($dia = 1; $dia <= $dias_no_mes; $dia++): ?>
+            <div class="dia-calendario">
+                <div class="dia-numero"><?php echo $dia; ?></div>
+                
+                <?php if(isset($aulas_por_dia[$dia]) && count($aulas_por_dia[$dia]) > 0): ?>
+                    <?php foreach($aulas_por_dia[$dia] as $aula): ?>
+                        <div class="aula-item" onclick="this.classList.toggle('expandido')">
+                            <div class="aula-resumo">
+                                👨‍🏫 <?php echo $aula['nome_professor']; ?>
+                            </div>
+                            <div class="aula-completa">
                                 <div class="horario-turno">
-                                    <?php echo($horario['turno']); ?> - 
-                                </div>
-                                <div class="horario-professor">
-                                    👨‍🏫 <?php echo $horario['nome_professor']; ?>
+                                    🕐 <?php echo ucfirst($aula['turno']); ?>
                                 </div>
                                 <div class="horario-materia">
-                                    📚 <?php echo $horario['nome_materia']; ?>
-                                </div>
-                                <div class="horario-turma">
-                                    🎓 <?php echo $horario['turma']; ?>
+                                    📚 <?php echo $aula['nome_materia']; ?>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <div class="dia-vazio">Sem aulas</div>
-                    <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
-        </div>
-        <br><br>
-        <a href="../templates/home.php" class="btn btn-secondary">Voltar para Home</a>
-    <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="sem-aulas">Sem aulas</div>
+                <?php endif; ?>
+            </div>
+        <?php endfor; ?>
+    </div>
+    
+    <br><br>
+    <a href="../forms/form_horarios.php" class="btn btn-primary">Cadastrar Horário</a>
+    <a href="../templates/home.php" class="btn btn-secondary">Voltar para Home</a>
 </div>
+
+<script>
+// Prevenir que o clique se propague para elementos pais
+document.querySelectorAll('.aula-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+});
+</script>
 </body>
 </html>
