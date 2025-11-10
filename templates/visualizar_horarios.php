@@ -67,6 +67,25 @@
 <div class="centralizada">
     <h1 style="color:rgba(42, 44, 83, 0.95);;">VISUALIZAR HORÁRIOS</h1>
     
+<!-- Adicione isso no topo da página, antes do calendário -->
+<div style="text-align:center; margin:20px;">
+    <form action="../alocacao/alocar_aulas.php" method="POST" style="display:inline;">
+        <input type="hidden" name="mes" value="<?= date('m') ?>">
+        <input type="hidden" name="ano" value="<?= date('Y') ?>">
+        <button type="submit" style="padding:15px 30px; background:#28a745; color:white; border:none; border-radius:8px; font-size:16px; cursor:pointer;">
+            🔄 Realocar Aulas do Mês Atual
+        </button>
+    </form>
+</div>
+
+<?php
+// Mostrar mensagem de sucesso se vier do alocar_aulas.php
+if(isset($_GET['msg']) && $_GET['msg'] == 'alocacao_concluida'){
+    echo '<div style="background:#d4edda; color:#155724; padding:15px; margin:20px auto; max-width:600px; border-radius:8px; text-align:center;">
+        ✅ Alocação de aulas concluída com sucesso!
+    </div>';
+}
+?>
     <div class="mes-navegacao">
         <a href="?mes=<?php echo $mes_anterior; ?>&ano=<?php echo $ano_anterior; ?>">
             <button>← Mês Anterior</button>

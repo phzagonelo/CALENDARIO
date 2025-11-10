@@ -7,6 +7,28 @@
     <link rel="stylesheet" href="../css/forms_geral.css">
 
 <body>
+<style>
+        .disponibilidade-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .disponibilidade-item {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        .disponibilidade-item label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+            font-weight: normal;
+            font-size: 14px;
+        }
+    </style>
      <?php 
         include "../navbar.php";
         include "../conexao.php";
