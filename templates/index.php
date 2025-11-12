@@ -85,12 +85,12 @@
     <div class="login-box">
         <img src="../images/LogoSenai.png" alt="Logo">
         <h1>Login</h1>  
-        <form action="../templates/home.php" method="POST">
-            <input type="text" placeholder="Email">
-            <br>
-            <input type="password" placeholder="Senha">
-            <br>
-            <button>ENTRAR</button>
+        <form action="../templates/autenticar.php" method="POST"> 
+            <input type="text" name="email" placeholder="Email" required>
+            <br> 
+            <input type="password" name="senha" placeholder="Senha" required>
+            <br> 
+            <button type="submit">ENTRAR</button> 
             <br>
             <a href="../forms/form_admin" class="admin-link">Cadastrar novo administrador</a>
         </form>
