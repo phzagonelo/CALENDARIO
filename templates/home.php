@@ -28,7 +28,6 @@
             $cards = [
                 ["fa-chalkboard-user", "Professores", "Cadastre e gerencie professores", "../forms/form_professor.php", "Cadastrar"],
                 ["fa-book", "Matérias", "Organize as disciplinas", "../forms/form_materia.php", "Gerenciar"],
-                ["fa-calendar", "Horários", "Agende aulas e horários", "../forms/form_horarios.php", "Agendar"],
                 ["fa-eye", "Visualizar", "Veja todos os horários", "visualizar_horarios.php", "Visualizar"]
             ];
             foreach ($cards as $c): ?>

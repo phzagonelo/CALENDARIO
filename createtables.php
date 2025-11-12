@@ -22,14 +22,6 @@ CREATE TABLE IF NOT EXISTS professores (
     email VARCHAR(191) NOT NULL UNIQUE,
     telefone VARCHAR(255) NOT NULL
 );
-CREATE TABLE IF NOT EXISTS horarios (
-    id INT(11) AUTO_INCREMENT PRIMARY KEY,
-    professor_id INT NOT NULL,
-    materia_id INT NOT NULL,
-    dia_semana VARCHAR(50) NOT NULL,
-    turno VARCHAR(10) NOT NULL,
-    turma VARCHAR(100) NOT NULL
-);
 CREATE TABLE IF NOT EXISTS materias_professor (
     professor_id INT NOT NULL,
     materia_id INT NOT NULL,

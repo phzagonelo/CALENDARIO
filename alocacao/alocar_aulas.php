@@ -137,14 +137,25 @@ while($materia = mysqli_fetch_assoc($materias)){
         
 // Verificar se o professor está livre neste dia/turno
 $sql_check = "SELECT COUNT(*) as total FROM aulas_mes 
-WHERE professor_id = $professor_id 
-AND data = '$data' 
-AND turno = '$turno_materia'";
+              WHERE professor_id = $professor_id 
+              AND data = '$data' 
+              AND turno = '$turno_materia'";
 $check_result = mysqli_query($conexao, $sql_check);
 $check = mysqli_fetch_assoc($check_result);
 
 if($check['total'] > 0){
-continue; // Professor já tem aula neste dia/turno
+    continue; // Professor já tem aula neste dia/turno
+}
+
+// NOVA VERIFICAÇÃO: Matéria não pode repetir no mesmo dia
+$sql_check_materia = "SELECT COUNT(*) as total FROM aulas_mes 
+                      WHERE materia_id = $materia_id 
+                      AND data = '$data'";
+$check_materia_result = mysqli_query($conexao, $sql_check_materia);
+$check_materia = mysqli_fetch_assoc($check_materia_result);
+
+if($check_materia['total'] > 0){
+    continue; // Matéria já tem aula neste dia (qualquer turno)
 }
 
 // NOVA VERIFICAÇÃO: Matéria não pode repetir no mesmo dia

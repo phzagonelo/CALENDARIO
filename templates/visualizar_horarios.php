@@ -73,7 +73,7 @@
         <input type="hidden" name="mes" value="<?= date('m') ?>">
         <input type="hidden" name="ano" value="<?= date('Y') ?>">
         <button type="submit" style="padding:15px 30px; background:#28a745; color:white; border:none; border-radius:8px; font-size:16px; cursor:pointer;">
-            🔄 Realocar Aulas do Mês Atual
+            🔄 Realocar Aulas
         </button>
     </form>
 </div>
