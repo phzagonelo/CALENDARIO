@@ -70,7 +70,6 @@ echo('
     <a href="../templates/home.php">Home</a>
     <a href="../forms/form_professor.php">Cadastrar Professor</a>
     <a href="../forms/form_materia.php">Cadastrar Materia</a>
-    <a href="../forms/form_horarios.php">Cadastrar Horarios</a>
     <a href="../templates/visualizar_horarios.php">Visualizar Horarios</a>
 </div>
 ');
